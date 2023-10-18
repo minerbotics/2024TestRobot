@@ -5,7 +5,6 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
 import frc.robot.commands.TurnCommand;
 import frc.robot.subsystems.TapeTurnerSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,7 +20,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final TapeTurnerSubsystem m_exampleSubsystem;
-  private final TurnCommand m_TurnCommand;
+  private final TurnCommand m_TurnClockwiseCommand;
+  private final TurnCommand m_TurnCounterClockwiseCommand;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -30,7 +30,8 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_exampleSubsystem = new TapeTurnerSubsystem();
-    m_TurnCommand = new TurnCommand(m_exampleSubsystem);
+    m_TurnClockwiseCommand = new TurnCommand(m_exampleSubsystem, true);
+    m_TurnCounterClockwiseCommand = new TurnCommand(m_exampleSubsystem, false);
     // Configure the trigger bindings
     configureBindings();
   }
@@ -45,7 +46,8 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_driverController.a().whileTrue(m_TurnCommand);
+    m_driverController.a().whileTrue(m_TurnClockwiseCommand);
+    m_driverController.b().whileTrue(m_TurnCounterClockwiseCommand);
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     //new Trigger(m_exampleSubsystem::exampleCondition)
     //    .onTrue(new TurnCommand(m_exampleSubsystem));

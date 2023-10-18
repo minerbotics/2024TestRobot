@@ -11,14 +11,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class TurnCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final TapeTurnerSubsystem m_subsystem;
+  private boolean m_clockwise;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public TurnCommand(TapeTurnerSubsystem subsystem) {
+  public TurnCommand(TapeTurnerSubsystem subsystem, boolean clockwise) {
     m_subsystem = subsystem;
+    m_clockwise = clockwise;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -30,7 +32,7 @@ public class TurnCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.turn();
+    m_subsystem.turn(m_clockwise);
   }
 
   // Called once the command ends or is interrupted.
